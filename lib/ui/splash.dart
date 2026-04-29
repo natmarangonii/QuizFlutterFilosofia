@@ -12,23 +12,34 @@ class _SplashState extends State<Splash>
     with SingleTickerProviderStateMixin {
 
   late AnimationController controller;
-  late Animation<Offset> animation;
+  late Animation<double> fadeAnimation;
+  late Animation<double> scaleAnimation;
 
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 1500),
     );
 
-    animation = Tween<Offset>(
-      begin: const Offset(0, -1.5),
-      end: Offset.zero,
+    fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Curves.bounceOut,
+        curve: Curves.easeIn,
+      ),
+    );
+
+    scaleAnimation = Tween<double>(
+      begin: 0.5,
+      end: 1.0,
+    ).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeOutBack,
       ),
     );
 
@@ -48,51 +59,55 @@ class _SplashState extends State<Splash>
   void irParaHome() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const Home()),
+      PageRouteBuilder(
+        pageBuilder: (_, _, _) => const Home(),
+        transitionsBuilder: (_, anim, _, child) {
+          return FadeTransition(opacity: anim, child: child);
+        },
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF3E2723), 
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(height: 60),
-
-          SlideTransition(
-            position: animation,
-            child: Center(
-              child: Image.asset(
-                'assets/info/logo.png',
-                height: 140,
-              ),
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(30),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFD7CCC8), 
-                  foregroundColor: const Color(0xFF3E2723), 
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+      backgroundColor: const Color(0xFF3E2723),
+      body: Center(
+        child: FadeTransition(
+          opacity: fadeAnimation,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/info/logo.png',
+                  height: 160,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Quiz de Filosofia",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFD7CCC8),
+                    letterSpacing: 1.2,
                   ),
                 ),
-                onPressed: irParaHome,
-                child: const Text(
-                  "Entrar",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                const SizedBox(height: 40),
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(
+                    color: Color(0xFFD7CCC8),
+                    strokeWidth: 3,
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

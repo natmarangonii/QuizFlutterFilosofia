@@ -3,7 +3,7 @@
 Um projeto flutter de um quiz de perguntas e respostas sobre alguns pensadores da filosofia. Com sistema de mudar a cor da alternativa quando acerta ou erra uma questão e pontuação no final.
 
 ## Print das Telas
-|![img](/assets/info/tela01)|![img](/assets/info/tela02)|![img](/assets/info/tela03)|
+|![img](/assets/info/tela01.png)|![img](/assets/info/tela02.png)|![img](/assets/info/tela03.png)|
 |:-:|:-:||:-:|
 |Splash|Perguntas|Resultado|
 ## Tecnologias
