@@ -1,10 +1,7 @@
 # Quiz de Filosofia
 
 ## Descrição do Projeto
-Este projeto consiste em um aplicativo desenvolvido em Flutter que apresenta um quiz de filosofia com perguntas de múltipla escolha.  
-As questões são carregadas a partir de um arquivo JSON local, permitindo fácil manutenção e organização dos dados.
-
-O aplicativo possui interface moderna, com uso de imagens ilustrativas para cada questão, feedback visual de acertos e erros, além de uma tela final com a pontuação do usuário.
+Um projeto que utiliza Flutter de questões de alguns pensadores de filosofia. Com sistema de mudar a cor caso acerte ou erre. Com pontuação no final das telas.
 
 ---
 
